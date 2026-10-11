@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f0ebdd">
+  <meta name="description" content="MINTLE is a little word puzzle for a quieter minute.">
+  <title>MINTLE — A little word game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="paper-grain" aria-hidden="true"></div>
+  <header class="masthead page-width">
+    <a class="brand-lockup" href="#top" aria-label="MINTLE home">
+      <span class="brand-mark" aria-hidden="true">m<span>.</span></span>
+      <span class="brand-copy">
+        <span class="eyebrow">THE DAILY WORD DESK</span>
+        <span class="brand-name">MINTLE<span class="brand-period">.</span></span>
+      </span>
+    </a>
+    <div class="header-actions" aria-label="Game information">
+      <button class="icon-button" id="help-button" type="button" aria-label="How to play" title="How to play">?</button>
+      <button class="icon-button" id="stats-button" type="button" aria-label="Statistics" title="Statistics"><span aria-hidden="true">▤</span></button>
+      <button class="icon-button" id="settings-button" type="button" aria-label="Settings" title="Settings"><span aria-hidden="true">☷</span></button>
+    </div>
+  </header>
+
+  <main id="top" class="page-width">
+    <div class="edition-line">
+      <span class="edition-tag"><span class="edition-dot" aria-hidden="true"></span> A SMALL DAILY RITUAL</span>
+      <span id="date-label" class="edition-date">MONDAY, OCTOBER 12</span>
+    </div>
+
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-title-block">
+        <p class="eyebrow intro-kicker">FIVE LETTERS / SIX GUESSES</p>
+        <h1 id="page-title">Read between<br><em>the letters.</em></h1>
+      </div>
+      <div class="intro-aside">
+        <span class="scribble" aria-hidden="true">✳</span>
+        <p>A little word puzzle for a quieter minute. No rush. Just a hunch, and another.</p>
+        <span class="aside-rule" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="game-ticket" aria-label="MINTLE word game">
+      <div class="ticket-topline">
+        <div class="ticket-label"><span class="ticket-number">FILE 05</span><span id="mode-caption">TODAY'S PUZZLE</span></div>
+        <div class="mode-switch" role="group" aria-label="Game mode">
+          <button id="daily-mode" class="mode-button is-active" type="button" aria-pressed="true">Daily</button>
+          <button id="practice-mode" class="mode-button" type="button" aria-pressed="false">Practice</button>
+        </div>
+      </div>
+
+      <div class="ticket-content">
+        <p id="game-message" class="game-message" role="status" aria-live="polite">Six tries. A little bit of word detective work.</p>
+        <div id="board" class="board" role="grid" aria-label="Six rows of five letter tiles"></div>
+        <div id="keyboard" class="keyboard" aria-label="On-screen keyboard"></div>
+        <div class="ticket-bottomline">
+          <span class="keyboard-hint"><span class="key-cap">ENTER</span> TO GUESS <span class="hint-divider">/</span> <span class="key-cap">⌫</span> TO ERASE</span>
+          <button id="new-practice-button" class="text-button" type="button">New practice ↗</button>
+        </div>
+      </div>
+      <div class="ticket-stamp" aria-hidden="true"><span>WORD</span><span>NO.</span><strong id="game-number">001</strong></div>
+    </section>
+
+    <section class="bottom-note" aria-label="About this game">
+      <div class="bottom-note-mark" aria-hidden="true">✳</div>
+      <p><strong>A note to self</strong><br>Good guesses are made. Great guesses are revised.</p>
+      <span class="bottom-note-signature">MADE FOR CURIOUS MINDS.</span>
+    </section>
+  </main>
+
+  <footer class="page-width site-footer">
+    <span>MINTLE EDITION <span id="footer-year"></span></span>
+    <span>ONE WORD AT A TIME.</span>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <div id="modal-backdrop" class="modal-backdrop" hidden>
+    <section id="help-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="help-title" hidden>
+      <div class="modal-head"><div><p class="eyebrow">THE INSTRUCTIONS</p><h2 id="help-title">How to play</h2></div><button class="modal-close" type="button" aria-label="Close dialog">×</button></div>
+      <p class="modal-intro">Find the hidden five-letter word in six guesses. Any five-letter A–Z guess is accepted, even if it is not in our small built-in word list.</p>
+      <div class="example-row" aria-label="Example: the letter M is in the correct position"><span class="example-tile state-correct">M</span><div><strong>Right letter, right place</strong><p>Green means the letter belongs exactly there.</p></div></div>
+      <div class="example-row" aria-label="Example: the letter I is in the word but in the wrong position"><span class="example-tile state-present">I</span><div><strong>Right letter, different place</strong><p>Yellow means the letter is in the word, somewhere else.</p></div></div>
+      <div class="example-row" aria-label="Example: the letter N is not in the word"><span class="example-tile state-absent">N</span><div><strong>Not in this word</strong><p>Gray means the letter does not have a remaining match.</p></div></div>
+      <p class="modal-footnote">A fresh daily puzzle arrives with the date. Practice mode is there whenever you want another round.</p>
+    </section>
+
+    <section id="stats-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="stats-title" hidden>
+      <div class="modal-head"><div><p class="eyebrow">YOUR LITTLE RECORD</p><h2 id="stats-title">Statistics</h2></div><button class="modal-close" type="button" aria-label="Close dialog">×</button></div>
+      <div class="stats-grid">
+        <div class="stat-cell"><strong id="stat-played">0</strong><span>Played</span></div>
+        <div class="stat-cell"><strong id="stat-winrate">0%</strong><span>Win rate</span></div>
+        <div class="stat-cell"><strong id="stat-current-streak">0</strong><span>Current streak</span></div>
+        <div class="stat-cell"><strong id="stat-max-streak">0</strong><span>Best streak</span></div>
+      </div>
+      <div class="distribution-heading"><h3>Guess distribution</h3><span>DAILY PUZZLES</span></div>
+      <div id="guess-distribution" class="guess-distribution"></div>
+      <div class="modal-actions"><button id="share-button" class="primary-button" type="button">Share result ↗</button></div>
+      <p class="modal-footnote">Your statistics stay in this browser. Practice rounds do not affect the daily record.</p>
+    </section>
+
+    <section id="settings-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="settings-title" hidden>
+      <div class="modal-head"><div><p class="eyebrow">MAKE YOURSELF COMFORTABLE</p><h2 id="settings-title">Settings</h2></div><button class="modal-close" type="button" aria-label="Close dialog">×</button></div>
+      <label class="setting-row" for="contrast-toggle"><span><strong>High contrast</strong><small>Make tile colors and edges more distinct.</small></span><input id="contrast-toggle" type="checkbox"></label>
+      <label class="setting-row" for="hardmode-toggle"><span><strong>Hard mode</strong><small>Use every revealed hint in your next guess.</small></span><input id="hardmode-toggle" type="checkbox"></label>
+      <p class="modal-footnote">Reduced motion follows your device's accessibility preference.</p>
+    </section>
+  </div>
+</body>
+</html>
